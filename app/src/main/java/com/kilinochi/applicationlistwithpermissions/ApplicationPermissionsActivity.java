@@ -22,7 +22,7 @@ public class ApplicationPermissionsActivity extends AppCompatActivity {
 
     private ApplicationInfo applicationInfo;
     private static final String APPLICATION_PARCELABLE_TAG = "APP_TAG";
-    private String [] requestedPermissions;
+    private List <String> reqPermissions;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class ApplicationPermissionsActivity extends AppCompatActivity {
     private void setApplicationPermissions(PackageManager packageManager) {
         try {
             PackageInfo packageInfo = packageManager.getPackageInfo(applicationInfo.packageName, PackageManager.GET_PERMISSIONS);
-            requestedPermissions = packageInfo.requestedPermissions;
+            reqPermissions = PermissionStringFilter.filter(packageInfo.requestedPermissions);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -52,7 +52,6 @@ public class ApplicationPermissionsActivity extends AppCompatActivity {
 
     private void setupRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.application_permission__recycler_view);
-        List <String> reqPermissions = PermissionStringFilter.filter(requestedPermissions);
         ApplicationPermissionAdapter applicationPermissionAdapter = new ApplicationPermissionAdapter(reqPermissions);
         recyclerView.setAdapter(applicationPermissionAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

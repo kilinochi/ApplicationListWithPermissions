@@ -1,5 +1,6 @@
 package com.kilinochi.applicationlistwithpermissions;
 
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements LoadAppCallbacks 
 
 
     private static final String TAG_TASK_FRAGMENT = "MAIN_ACTIVITY_FRAGMENT";
+    private static final String APPLICATION_INFO_TAG = "APP_TAG";
 
 
     @Override
@@ -30,7 +32,9 @@ public class MainActivity extends AppCompatActivity implements LoadAppCallbacks 
 
 
     private void onAppClick (ApplicationInfo applicationInfo){
-        //TODO - Логика выбора определенного приложения
+        Intent intent = new Intent(this, ApplicationPermissionsActivity.class);
+        intent.putExtra(APPLICATION_INFO_TAG,applicationInfo);
+        startActivity(intent);
     }
 
     @Override

@@ -9,11 +9,13 @@ import android.widget.TextView;
 
 import com.kilinochi.applicationlistwithpermissions.R;
 
+import java.util.List;
+
 public class ApplicationPermissionAdapter extends RecyclerView.Adapter<ApplicationPermissionAdapter.AppPermissionViewHolder> {
 
-    private final String [] requestedPermissions;
+    private final List<String> requestedPermissions;
 
-    public ApplicationPermissionAdapter(String[] requestedPermissions) {
+    public ApplicationPermissionAdapter(List<String> requestedPermissions) {
         this.requestedPermissions = requestedPermissions;
     }
 
@@ -27,14 +29,14 @@ public class ApplicationPermissionAdapter extends RecyclerView.Adapter<Applicati
 
     @Override
     public void onBindViewHolder(@NonNull AppPermissionViewHolder appPermissionViewHolder, int index) {
-        String appPermission = requestedPermissions[index];
+        String appPermission = requestedPermissions.get(index);
         appPermissionViewHolder.bind(appPermission);
         appPermissionViewHolder.itemView.setTag(appPermission);
     }
 
     @Override
     public int getItemCount() {
-        return requestedPermissions.length;
+        return requestedPermissions.size();
     }
 
     final class AppPermissionViewHolder extends RecyclerView.ViewHolder {
@@ -47,8 +49,6 @@ public class ApplicationPermissionAdapter extends RecyclerView.Adapter<Applicati
         }
 
         private void bind(String permission) {
-            //TODO - String replace 
-           // permission = permission.replaceAll("","");
             permissionName.setText(permission);
         }
     }

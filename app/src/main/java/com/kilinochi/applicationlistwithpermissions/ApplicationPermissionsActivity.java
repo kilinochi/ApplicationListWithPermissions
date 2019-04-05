@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import com.kilinochi.applicationlistwithpermissions.adapter.ApplicationPermissionAdapter;
 import com.kilinochi.applicationlistwithpermissions.app_config.App;
+import com.kilinochi.applicationlistwithpermissions.filter.PermissionStringFilter;
 
+import java.util.List;
 
 
 public class ApplicationPermissionsActivity extends AppCompatActivity {
@@ -50,7 +52,8 @@ public class ApplicationPermissionsActivity extends AppCompatActivity {
 
     private void setupRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.application_permission__recycler_view);
-        ApplicationPermissionAdapter applicationPermissionAdapter = new ApplicationPermissionAdapter(requestedPermissions);
+        List <String> reqPermissions = PermissionStringFilter.filter(requestedPermissions);
+        ApplicationPermissionAdapter applicationPermissionAdapter = new ApplicationPermissionAdapter(reqPermissions);
         recyclerView.setAdapter(applicationPermissionAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);

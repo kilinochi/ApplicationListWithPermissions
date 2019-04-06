@@ -17,6 +17,11 @@ import java.util.List;
 
 public class AppAdapter extends RecyclerView.Adapter <AppAdapter.AppViewHolder>  {
 
+    /**
+     * Цель работы Адаптера заключается в отрисовке списка в RecyclerView
+     * на вход подается коллекция ApplicationInfo,
+     * каждый из объект которого содержит в себе информацию о конкретном приложении
+     * */
     private final List <ApplicationInfo> appList;
     private final Listener onAppListener;
 

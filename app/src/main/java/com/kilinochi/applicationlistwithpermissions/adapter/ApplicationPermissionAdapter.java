@@ -13,6 +13,11 @@ import java.util.List;
 
 public class ApplicationPermissionAdapter extends RecyclerView.Adapter<ApplicationPermissionAdapter.AppPermissionViewHolder> {
 
+
+    /**
+     * Цель работы Адаптера заключается в отрисовке списка в RecyclerView
+     * на вход подается коллекция String, каждый из которых содержит в себе информацию о конкретном разрешении прилоежния
+     * */
     private final List<String> requestedPermissions;
 
     public ApplicationPermissionAdapter(List<String> requestedPermissions) {

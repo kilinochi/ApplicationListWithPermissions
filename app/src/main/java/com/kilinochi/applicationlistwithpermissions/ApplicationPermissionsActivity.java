@@ -18,10 +18,16 @@ import com.kilinochi.applicationlistwithpermissions.filter.PermissionStringFilte
 import java.util.List;
 
 
+
+/*Второе активити, где отрисовывается визуальная составляющая конкретного приложения и его разрешения
+* На входе принимается экземпляр класса ApplicationInfo, содержащий в себе информацию о приложении*/
 public class ApplicationPermissionsActivity extends AppCompatActivity {
 
     private ApplicationInfo applicationInfo;
+
+    /*Константа для поиска экземпляра класса ApplicationInfo*/
     private static final String APPLICATION_PARCELABLE_TAG = "APP_TAG";
+    /*Коллекция, содержащая в себе разрешения для данного приложения*/
     private List <String> reqPermissions;
 
     @Override
@@ -30,9 +36,11 @@ public class ApplicationPermissionsActivity extends AppCompatActivity {
         setContentView(R.layout.application_permissions_activity);
         ImageView applicationIcon = findViewById(R.id.application_permission__app_icon);
         TextView applicationName = findViewById(R.id.application_permission__app_name);
-        if(getIntent().getExtras() == null) {
+        if(getIntent().getExtras() == null) { // если по каким-то причинам мы на входе получаем null, активити уничтожается
             finish();
         }
+        // достаем экземпляр класса,
+        // переданного нам в главной активити
         applicationInfo = getIntent().getExtras().getParcelable(APPLICATION_PARCELABLE_TAG);
         PackageManager packageManager = App.getInstance().getPackageManager();
         applicationIcon.setImageDrawable(applicationInfo.loadIcon(packageManager));
@@ -40,6 +48,11 @@ public class ApplicationPermissionsActivity extends AppCompatActivity {
         setApplicationPermissions(packageManager);
         setupRecyclerView();
     }
+
+    /*Здесь мы должны наполнить нашу коллецию ликвидными разрешениям и
+    * Для этого мы пропускаем их через специальный "метод-фильтр" - 58 строчка кода
+    * - подробнее см. в описании
+    * класса - PermissionStringFilter*/
 
     private void setApplicationPermissions(PackageManager packageManager) {
         try {
@@ -50,6 +63,7 @@ public class ApplicationPermissionsActivity extends AppCompatActivity {
         }
     }
 
+    /*установка RecyclerView и отрисовка при помощи ApplicationPermissionsAdapter*/
     private void setupRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.application_permission__recycler_view);
         ApplicationPermissionAdapter applicationPermissionAdapter = new ApplicationPermissionAdapter(reqPermissions);

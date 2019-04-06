@@ -4,6 +4,11 @@ import android.app.Application;
 import android.content.pm.PackageManager;
 
 public class App extends Application {
+
+    /**
+     * Класс конфигурации (см. документацию)
+     * необходим для доступа к объекту класса packageManager из всего приложения
+     * */
     private static App instance;
     private PackageManager packageManager;
 
